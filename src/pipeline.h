@@ -188,11 +188,12 @@ struct PipelineBaton {
   bool jxlLossless;
   VipsBandFormat rawDepth;
   std::string err;
-  bool withMetadata;
+  int keepMetadata;
   int withMetadataOrientation;
   double withMetadataDensity;
-  std::string withMetadataIcc;
-  std::unordered_map<std::string, std::string> withMetadataStrs;
+  std::string withIccProfile;
+  std::unordered_map<std::string, std::string> withExif;
+  bool withExifMerge;
   int timeoutSeconds;
   std::unique_ptr<double[]> convKernel;
   int convKernelWidth;
@@ -355,9 +356,10 @@ struct PipelineBaton {
     jxlEffort(7),
     jxlLossless(false),
     rawDepth(VIPS_FORMAT_UCHAR),
-    withMetadata(false),
+    keepMetadata(0),
     withMetadataOrientation(-1),
     withMetadataDensity(0.0),
+    withExifMerge(true),
     timeoutSeconds(0),
     convKernelWidth(0),
     convKernelHeight(0),
